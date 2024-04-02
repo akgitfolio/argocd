@@ -1,0 +1,37 @@
+# Application manifest for development environment
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-microservice-app
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: development
+  source:
+    repoURL: https://github.com/your-org/microservice.git
+    targetRevision: development
+    path: /kubernetes
+  project: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+# Application manifest for production environment
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod-microservice-app
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  source:
+    repoURL: https://github.com/your-org/microservice.git
+    targetRevision: production
+    path: /kubernetes
+  project: prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
