@@ -1,0 +1,37 @@
+# Application manifest for blue environment
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blue-microservice-app
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: blue
+  source:
+    repoURL: https://github.com/your-org/microservice.git
+    targetRevision: blue
+    path: /kubernetes
+  project: blue
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+# Application manifest for green environment
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: green-microservice-app
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: green
+  source:
+    repoURL: https://github.com/your-org/microservice.git
+    targetRevision: green
+    path: /kubernetes
+  project: green
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
